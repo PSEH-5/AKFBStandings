@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.fbstandings.model.Result;
 import com.example.fbstandings.service.FBService;
 
-//Author - Arun
+//Author - Arun Kumar
 
 @RestController
 @Validated
