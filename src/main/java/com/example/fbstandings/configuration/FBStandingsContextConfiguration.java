@@ -4,8 +4,8 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.xml.ws.http.HTTPBinding;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
@@ -17,11 +17,13 @@ import org.springframework.web.client.RestTemplate;
 
 import com.example.fbstandings.service.FBService;
 
-import ch.qos.logback.classic.pattern.MessageConverter;
-
 @Configuration
+@EnableConfigurationProperties(value = {FBStandPropsConfiguration.class})
 public class FBStandingsContextConfiguration {
 
+	@Autowired
+	FBStandPropsConfiguration props;
+	
 	@Bean
 	RestOperations rest() {
 		RestTemplate rest = new RestTemplate(new HttpComponentsClientHttpRequestFactory());
@@ -37,6 +39,6 @@ public class FBStandingsContextConfiguration {
 	
 	@Bean
 	FBService fbservice(RestOperations rest) {
-		return new FBService(rest);
+		return new FBService(rest, props);
 	} 
 }
